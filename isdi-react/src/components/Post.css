@@ -27,8 +27,9 @@ article {
 
 .authorAndAvatar {
     margin-top: 0;
-    display: flex;
     gap: 10px;
+    display: flex;
+    position: absolute;
 }
 
 .authorAndAvatar img,
@@ -50,19 +51,33 @@ p {
     word-break: break-word;
     text-overflow: ellipsis;
     cursor: pointer;
+    color: var(--basecolorPost);
+}
+
+.nameAuthor {
+    color: var(--basecolorPost);
+}
+
+div {
+    color: var(--basecolorPost);
 }
 
 time {
     font-size: 0.8rem;
-    color: var(--basecolorDetails);
+    color: var(--basecolorPost);
     position: absolute;
     bottom: 0;
     left: 10px;
 }
 
+.avatarLikes {
+    display: flex;
+    position: relative;
+}
 .avatarLike {
     bottom: 0;
     right: 10px;
+    border: 1px solid aquamarine;
 }
 
 .avatarLike + .avatarLike {
@@ -78,7 +93,12 @@ time {
     width: 100%;
 }
 .postButtons {
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: 1rem;
+    size: 15px;
 }
 
 /* .avatarUserOnPost {

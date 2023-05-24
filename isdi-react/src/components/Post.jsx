@@ -83,7 +83,7 @@ export default function Post({
                     {likes && likes.includes(context.userId) ? '❤️' : '🤍'}
                 </button>
                 <div className="avatarLikes">
-                    <p> Likes: </p>
+                    Likes:
                     {likes &&
                         likes.map((like) => (
                             <img

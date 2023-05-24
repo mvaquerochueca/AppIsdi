@@ -12,6 +12,8 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
+    const DEFAULT_AVATAR =
+        'https://cdn.leonardo.ai/users/cab13481-4696-43f6-9edf-58576f4a0945/generations/ba9c8e69-01da-43d8-a64b-1a0e2db8598e/Leonardo_Diffusion_Batman_1.jpg'
 
     let _user
 
@@ -72,6 +74,14 @@ export default function Home({ onLoggedOut }) {
         }
     }
 
+    const handleDefaultAvatar = () => {
+        if (!user.avatar) {
+            return DEFAULT_AVATAR
+        } else {
+            return user.avatar
+        }
+    }
+
     return (
         <div className="home">
             <header className="home-header">
@@ -86,7 +96,7 @@ export default function Home({ onLoggedOut }) {
                     <div className=".home-header-avatar-img-user">
                         <img
                             className="home-header-avatar"
-                            src={user.avatar}
+                            src={handleDefaultAvatar()}
                             alt=""
                         />
                     </div>

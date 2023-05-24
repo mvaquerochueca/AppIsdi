@@ -1,0 +1,125 @@
+article {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    display: flex;
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid var(--basecolorDetails);
+    border-radius: 1rem;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.avatarUserOnPost,
+.avatarLike {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.nameAuthor {
+    font-size: 75%;
+    font-weight: bold;
+    color: var(--basecolorDetails);
+}
+
+.authorAndAvatar {
+    margin-top: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.authorAndAvatar img,
+.authorAndAvatar p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.timeInfo {
+    position: absolute;
+    bottom: 0;
+}
+
+.authorImageTime {
+    display: column;
+}
+
+p {
+    word-break: break-word;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+time {
+    font-size: 0.8rem;
+    color: var(--basecolorDetails);
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+.avatarLike {
+    bottom: 0;
+    right: 10px;
+}
+
+.avatarLike + .avatarLike {
+    margin-left: -10px;
+}
+
+.infoPost {
+    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+
+    width: 100%;
+}
+.postButtons {
+    right: 0;
+}
+
+/* .avatarUserOnPost {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.infoPost,
+.postButtons {
+    flex: 1;
+    height: 100%;
+}
+
+.infoPost {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.avatarPost,
+.nameAuthor {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.timeInfo {
+    display: flex;
+    height: 100%;
+    top: 90%;
+}
+
+.authorAvatarAndDate {
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postButtons {
+    display: column;
+    justify-content: flex-end;
+    align-items: center;
+} */

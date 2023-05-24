@@ -1,0 +1,54 @@
+.register {
+    border: var(--bordercolor);
+}
+
+* {
+    border: var(--bordercolor);
+}
+
+div {
+    border: var(--basecolorBackground);
+}
+
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 16px;
+    text-align: center;
+    background-color: var(--basecolorBackground);
+    border: var(--borderColor);
+}
+
+.form-section {
+    padding: 16px;
+    font-size: 0.9rem;
+    background-color: var(--basecolorBackground);
+    box-shadow: rgb(0, 0, 0/8%) 0px -1px;
+    text-align: center;
+}
+
+.input-register,
+.input-login {
+    background: none;
+    border: 0;
+    outline: 0;
+    height: 40%;
+    width: 90%;
+    border-bottom: 1px solid var(--basecolorBackground);
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+.icon:hover:before {
+    width: 250px;
+    content: attr(data-title);
+    position: absolute;
+    left: 10%;
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.5s ease;
+}

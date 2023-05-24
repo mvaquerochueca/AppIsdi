@@ -1,0 +1,41 @@
+.add-post section {
+    position: relative;
+}
+
+.posts-section {
+    display: grid;
+    flex-direction: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+section {
+    margin-top: 5%;
+}
+
+.postButtons {
+    top: 0px;
+    right: 0px;
+    margin-top: 1rem;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    size: 30px;
+}
+
+div.postButtons button {
+    font-size: 15px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.infoPost {
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-size: auto;
+}

@@ -4,10 +4,11 @@ import toggleLikePost from '../logic/toggleLikePost'
 import deletePost from '../logic/deletePost'
 import retrieveUser from '../logic/retrieveUser'
 export default function Post({
-    post: { id, image, text, date, likes, author, name },
+    post: { id, image, text, date, likes, author },
     onEditPost,
     onToggledLikePost,
     onPostDeleted,
+    DEFAULT_AVATAR,
 }) {
     console.log('Post -> render')
 
@@ -19,6 +20,7 @@ export default function Post({
 
     const handleToggleLikePost = () => {
         try {
+            // savedPosts.push(id)
             toggleLikePost(context.userId, id)
             onToggledLikePost()
         } catch (error) {
@@ -44,11 +46,33 @@ export default function Post({
     }
     const formattedDate = date.toLocaleDateString('en-EN', options)
 
+    const handleDefaultAvatar = () => {
+        if (!authorAvatar) {
+            return DEFAULT_AVATAR
+        } else {
+            return authorAvatar
+        }
+    }
+
     const limitText = (text) => {
         if (text.length > 50) {
             return text.slice(0, 50) + '...'
         } else {
             return text
+        }
+    }
+
+    const handleShowLikes = (likes) => {
+        if (likes.length < 5) {
+            return likes.map((like) => (
+                <img
+                    key={like}
+                    className="avatarLike"
+                    src={retrieveUser(like).avatar}
+                />
+            ))
+        } else {
+            return <p className="likesNumber">+{likes.length}</p>
         }
     }
 
@@ -58,7 +82,10 @@ export default function Post({
         <article style={{ backgroundImage: `url(${image})` }}>
             <div className="authorImageTime">
                 <div className="authorAndAvatar">
-                    <img className="avatarUserOnPost" src={authorAvatar} />
+                    <img
+                        className="avatarUserOnPost"
+                        src={handleDefaultAvatar()}
+                    />
                     <p className="nameAuthor"> {nameCreatorPost}</p>
                 </div>
                 <div className="imageDate">
@@ -83,8 +110,9 @@ export default function Post({
                     {likes && likes.includes(context.userId) ? '❤️' : '🤍'}
                 </button>
                 <div className="avatarLikes">
-                    Likes:
-                    {likes &&
+                    {likes && handleShowLikes(likes)}
+
+                    {/* {likes &&
                         likes.map((like) => (
                             <img
                                 key={like}
@@ -92,9 +120,9 @@ export default function Post({
                                 src={retrieveUser(like).avatar}
                             />
                         ))}
-                    {likes && likes.length > 3 && (
-                        <p className="likesNumber">+{likes.length - 3}</p>
-                    )}
+                    {likes && likes.length > 4 && (
+                        <p className="likesNumber">+{likes.length}</p>
+                    )}{' '} */}
                 </div>
             </div>
         </article>

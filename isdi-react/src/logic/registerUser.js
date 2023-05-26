@@ -29,6 +29,7 @@ export default function registerUser(name, email, password) {
         name,
         email,
         password,
+        savedPosts: [],
     }
     _users.push(user)
     saveUsers(_users)

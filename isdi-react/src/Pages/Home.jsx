@@ -12,6 +12,8 @@ export default function Home({ onLoggedOut }) {
     const [modal, setModal] = useState(null)
     const [postId, setPostId] = useState(null)
     const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
+    const [isMenuOpen, setMenuOpen] = useState(false)
+
     const DEFAULT_AVATAR =
         'https://cdn.leonardo.ai/users/cab13481-4696-43f6-9edf-58576f4a0945/generations/ba9c8e69-01da-43d8-a64b-1a0e2db8598e/Leonardo_Diffusion_Batman_1.jpg'
 
@@ -24,6 +26,26 @@ export default function Home({ onLoggedOut }) {
     }
 
     const [user, setUser] = useState(_user)
+
+    const handleToggleMenu = () => {
+        setMenuOpen(!isMenuOpen)
+        handleHideProfileHeader()
+    }
+
+    const hideAvatar = document.querySelector('.home-header-avatar-img-user')
+    const hideProfile = document.querySelector('.link-profile')
+
+    const handleHideProfileHeader = () => {
+        hideAvatar.style.display = 'flex'
+        hideProfile.style.display = 'flex'
+        if (!isMenuOpen) {
+            hideAvatar.style.display = 'none'
+            hideProfile.style.display = 'none'
+        } else {
+            hideAvatar.style.display = 'flex'
+            hideProfile.style.display = 'flex'
+        }
+    }
 
     const handleSwitchMode = () => {
         document.querySelector(':root').classList.toggle('dark')
@@ -49,11 +71,13 @@ export default function Home({ onLoggedOut }) {
 
         setModal(null)
         setView('profile')
+        setMenuOpen(false)
     }
 
     const handleGoToPosts = () => {
         setModal(null)
         setView('posts')
+        setMenuOpen(false)
     }
     const handlePostUpdated = () => {
         setModal(null)
@@ -85,42 +109,67 @@ export default function Home({ onLoggedOut }) {
     return (
         <div className="home">
             <header className="home-header">
-                <button
-                    className="button-home button"
-                    onClick={handleGoToPosts}
+                <div
+                    className={`menu-burger ${isMenuOpen ? 'open' : ''}`}
+                    onClick={handleToggleMenu}
                 >
-                    Home
-                </button>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
 
-                <nav className="home-header-nav">
-                    <div className=".home-header-avatar-img-user">
-                        <img
-                            className="home-header-avatar"
-                            src={handleDefaultAvatar()}
-                            alt=""
-                        />
-                    </div>
-                    <div className="home-link-profile">
+                <div className="home-header-avatar-img-user">
+                    <img
+                        className="home-header-avatar"
+                        src={handleDefaultAvatar()}
+                        alt=""
+                    />
+                    <a
+                        href=""
+                        className="link-profile"
+                        onClick={handleGoToProfile}
+                    >
+                        {user.name}
+                    </a>
+                </div>
+
+                <nav className={`home-header-nav ${isMenuOpen ? 'open' : ''}`}>
+                    <div className="">
                         <a
                             href=""
-                            className="link-profile"
+                            className="button-home button"
                             onClick={handleGoToProfile}
                         >
+                            <img
+                                className="home-header-avatar"
+                                src={handleDefaultAvatar()}
+                                alt=""
+                            />
                             {user.name}
                         </a>
                     </div>
+                    {/* <div className="home-link-profile"></div> */}
+                    <div>
+                        <a
+                            className="button-home button"
+                            onClick={handleGoToPosts}
+                        >
+                            Home
+                        </a>
+                    </div>
+
+                    <div className="btn-container-header-logout">
+                        <a
+                            onClick={handleLogout}
+                            className="btn-home-logout button"
+                        >
+                            Logout
+                        </a>
+                    </div>
                 </nav>
-                <div className="btn-container-header-logout">
-                    <button
-                        onClick={handleLogout}
-                        className="btn-home-logout button"
-                    >
-                        Logout
-                    </button>
-                </div>
             </header>
 
-            <main>
+            <main className="main">
                 {view === 'posts' && (
                     <Posts
                         onEditPost={handleOpenEditPostModal}

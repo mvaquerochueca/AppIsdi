@@ -5,7 +5,7 @@ input {
     border: 0;
     outline: 0;
     height: 40%;
-    border-bottom: 1px solid #536c9f;
+    border-bottom: 1px solid #f7f7f7;
     font-size: 0.9rem;
     padding: 8px 15px;
 }
@@ -24,12 +24,10 @@ input {
     background-color: var(--basecolorModal);
     border-radius: 15px;
 }
-.modal-add-post input::placeholder,
-.modal-add-post textarea::placeholder,
-.modal-edit-post input::placeholder,
-.modal-edit-post textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: var(--basecolorDetails);
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 .modal-add-post button,
 .modal-edit-post button {

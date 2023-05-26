@@ -13,6 +13,8 @@ export default function App() {
 
     const handleGoToHome = () => setView('home')
 
+    const handleGoToSavePost = () => setView('savePost')
+
     // componentWillMount() {
     //     console.log('App -> componentWillMount')
     // }

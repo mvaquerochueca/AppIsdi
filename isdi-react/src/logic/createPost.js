@@ -24,6 +24,7 @@ export default function createPost(userId, image, text) {
         id,
         author: userId,
         image: image,
+
         text,
         date: new Date(),
     }
@@ -31,9 +32,3 @@ export default function createPost(userId, image, text) {
     _posts.push(post)
     savePosts(_posts)
 }
-
-//TODO
-//chek if user exist with userId
-//create post Id
-//create post objetc and add author , image, text  anda date(new date propierties )
-//add post to post array

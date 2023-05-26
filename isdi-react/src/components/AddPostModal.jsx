@@ -30,7 +30,12 @@ export default function AddPostModal({ onCancel, onPostCreated }) {
         <section className="add-post container">
             <form className="modal-add-post" onSubmit={handleCreatePost}>
                 <h3>Create Post</h3>
-                <input type="url" name="image" id="image" />
+                <input
+                    type="url"
+                    name="image"
+                    id="image"
+                    placeholder="Image URL"
+                />
 
                 <textarea
                     className="input"

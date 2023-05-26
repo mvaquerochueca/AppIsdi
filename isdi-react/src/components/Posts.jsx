@@ -43,7 +43,7 @@ export default function Posts({ onEditPost, lastPostsUpdate }) {
     console.log('Posts -> render')
 
     return (
-        <section>
+        <section className="postsSection">
             {posts.map((post) => (
                 <Post
                     key={post.id}

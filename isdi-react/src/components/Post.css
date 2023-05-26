@@ -1,5 +1,6 @@
 article {
     background-size: cover;
+    /* opacity: 0.7; */
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
@@ -11,6 +12,12 @@ article {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* article:hover {
+    transform: scale(1.03);
+    opacity: 1;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+} */
 
 .avatarUserOnPost,
 .avatarLike {
@@ -66,7 +73,7 @@ time {
     font-size: 0.8rem;
     color: var(--basecolorPost);
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     left: 10px;
 }
 
@@ -95,51 +102,6 @@ time {
 .postButtons {
     display: flex;
     flex-direction: column;
+    text-align: right;
     justify-content: flex-end;
-    align-items: flex-end;
-    margin-top: 1rem;
-    size: 15px;
 }
-
-/* .avatarUserOnPost {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-}
-
-.infoPost,
-.postButtons {
-    flex: 1;
-    height: 100%;
-}
-
-.infoPost {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.avatarPost,
-.nameAuthor {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.timeInfo {
-    display: flex;
-    height: 100%;
-    top: 90%;
-}
-
-.authorAvatarAndDate {
-    display: flex;
-    height: 100%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.postButtons {
-    display: column;
-    justify-content: flex-end;
-    align-items: center;
-} */

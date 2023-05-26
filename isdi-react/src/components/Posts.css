@@ -2,16 +2,8 @@
     position: relative;
 }
 
-.posts-section {
-    display: grid;
-    flex-direction: grid;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
-}
-
 section {
-    margin-top: 5%;
+    padding-top: 10px;
 }
 
 .postButtons {

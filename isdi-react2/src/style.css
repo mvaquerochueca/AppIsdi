@@ -1,0 +1,82 @@
+:root {
+    --basecolorBackground: #f1f7fe;
+    --basecolorButtons: #0066ff;
+    --basecolorDetails: #010101;
+    --basecolorModal: rgba(54, 125, 158, 0.9);
+    --basecolorPost: rgb(107, 154, 201);
+    --borderColor: #010101;
+    --baseForm: #e0ecfb;
+}
+
+:root.dark {
+    --basecolorBackground: #121212;
+    --basecolorButtons: #bb86fc;
+    --basecolorDetails: #03dac6;
+    --basecolorModal: #3700b3;
+    --basecolorPost: #03dac6;
+    --bordercolor: #bb86fc;
+    --baseForm: #e0ecfb;
+}
+
+html {
+    font-family: 'Cascadia Code', sans-serif;
+    background-color: var(--basecolorBackground);
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+div {
+    border: var(--basecolorBackground);
+}
+
+/* divs */
+.container {
+    max-width: 300px;
+    background: var(--basecolorBackground);
+    overflow: hidden;
+    border-radius: 16px;
+    color: var(--basecolorDetails);
+    height: 100%;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+/*register and log in*/
+.form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 16px;
+    text-align: center;
+}
+
+.input-change-password {
+    background: none;
+    border: 0;
+    outline: 0;
+    height: 40%;
+    width: 90%;
+    border-bottom: 1px solid var(--basecolorBackground);
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+.form-section {
+    padding: 16px;
+    font-size: 0.9rem;
+    background-color: var(--basecolorBackground);
+    box-shadow: rgb(0, 0, 0/8%) 0px -1px;
+    text-align: center;
+}
+
+/* components */
+
+/* modal */

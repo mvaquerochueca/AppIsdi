@@ -1,0 +1,53 @@
+.modal-add-post textarea,
+input .modal-edit-post textarea,
+input {
+    background-color: var(--basecolorModal);
+    border: 0;
+    outline: 0;
+    height: 40%;
+    border-bottom: 1px solid #f7f7f7;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+.modal-add-post,
+.modal-edit-post {
+    border: 1px solid var(--basecolorDetails);
+    position: fixed;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--basecolorModal);
+    border-radius: 15px;
+}
+
+.modal-edit-post {
+    background-color: var(--basecolorModal);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--basecolorDetails);
+    font-size: 1rem;
+}
+.modal-add-post button,
+.modal-edit-post button {
+    background-color: var(--basecolorButtons);
+    color: var(--basecolorBackground);
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 15px;
+}
+.modal-add-post h3,
+.modal-edit-post h3 {
+    color: var(--basecolorDetails);
+    font-size: 1.3rem;
+    font-weight: 600px;
+}

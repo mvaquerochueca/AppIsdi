@@ -14,14 +14,14 @@
     --basecolorDetails: #03dac6;
     --basecolorModal: #3700b3;
     --basecolorPost: #03dac6;
-    --bordercolor: #03dac6;
+    --bordercolor: #bb86fc;
     --baseForm: #e0ecfb;
 }
 
 html {
     font-family: 'Cascadia Code', sans-serif;
     background-color: var(--basecolorBackground);
-    height: 100%;
+    height: auto;
 }
 
 body {
@@ -40,7 +40,7 @@ div {
     color: var(--basecolorDetails);
     height: 100%;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 150px;
 }
 
 .title {
@@ -48,8 +48,7 @@ div {
     font-size: 1.6rem;
 }
 
-/*register and log in*/
-.form {
+/* register and log in .form {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -74,8 +73,8 @@ div {
     font-size: 0.9rem;
     background-color: var(--basecolorBackground);
     box-shadow: rgb(0, 0, 0/8%) 0px -1px;
-    text-align: center;
-}
+    text-align: center; */
+/* } */
 
 /* components */
 

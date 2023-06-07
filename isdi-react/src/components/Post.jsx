@@ -1,28 +1,32 @@
-import { context } from '../ui'
+import { context, DEFAULT_AVATAR } from '../ui'
 import './Post.css'
 import toggleLikePost from '../logic/toggleLikePost'
+import toggleFavPost from '../logic/toggleFavPosts'
 import deletePost from '../logic/deletePost'
-import retrieveUser from '../logic/retrieveUser'
+import { useContext } from 'react'
+import Context from '../Context'
+
 export default function Post({
-    post: { id, image, text, date, likes, author },
+    post: { id, image, text, date, likes, author, fav },
     onEditPost,
     onToggledLikePost,
     onPostDeleted,
-    DEFAULT_AVATAR,
+    onToggledSavePost,
+    onGoToProfile,
 }) {
-    console.log('Post -> render')
-
-    const nameCreatorPost = retrieveUser(author).name
-
-    const authorAvatar = retrieveUser(author).avatar
-
+    const { alert, freeze, unfreeze } = useContext(Context)
     const handleEditPost = () => onEditPost(id)
 
     const handleToggleLikePost = () => {
         try {
-            // savedPosts.push(id)
-            toggleLikePost(context.userId, id)
-            onToggledLikePost()
+            freeze()
+            toggleLikePost(context.userId, id, (error) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
+                }
+                onToggledLikePost()
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -30,9 +34,31 @@ export default function Post({
 
     const handleDeletePost = () => {
         try {
-            deletePost(context.userId, id)
+            deletePost(context.userId, id, (error) => {
+                if (error) {
+                    alert(error.message)
 
-            onPostDeleted()
+                    return
+                }
+
+                onPostDeleted()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    const handleToggleSavePost = () => {
+        try {
+            toggleFavPost(context.userId, id, (error) => {
+                if (error) {
+                    alert(error.message)
+
+                    return
+                }
+
+                onToggledSavePost()
+            })
         } catch (error) {
             alert(error.message)
         }
@@ -46,11 +72,17 @@ export default function Post({
     }
     const formattedDate = date.toLocaleDateString('en-EN', options)
 
-    const handleDefaultAvatar = () => {
-        if (!authorAvatar) {
-            return DEFAULT_AVATAR
+    const handleShowLikes = (likes) => {
+        if (likes.length < 5) {
+            return likes.map((like) => (
+                <img
+                    key={like}
+                    className="avatarLike"
+                    src={author.avatar ? author.avatar : DEFAULT_AVATAR}
+                />
+            ))
         } else {
-            return authorAvatar
+            return <p className="likesNumber">+{likes.length}</p>
         }
     }
 
@@ -62,69 +94,129 @@ export default function Post({
         }
     }
 
-    const handleShowLikes = (likes) => {
-        if (likes.length < 5) {
-            return likes.map((like) => (
-                <img
-                    key={like}
-                    className="avatarLike"
-                    src={retrieveUser(like).avatar}
-                />
-            ))
-        } else {
-            return <p className="likesNumber">+{likes.length}</p>
-        }
-    }
-
     const textPost = limitText(text)
 
     return (
-        <article style={{ backgroundImage: `url(${image})` }}>
-            <div className="authorImageTime">
-                <div className="authorAndAvatar">
-                    <img
-                        className="avatarUserOnPost"
-                        src={handleDefaultAvatar()}
-                    />
-                    <p className="nameAuthor"> {nameCreatorPost}</p>
+        <div className="feed">
+            <section className="username">
+                <div className="image">
+                    <a href="#">
+                        {' '}
+                        <img
+                            src={author.avatar ? author.avatar : DEFAULT_AVATAR}
+                        />
+                    </a>
                 </div>
-                <div className="imageDate">
-                    {/* <img src={image} /> */}
-                    <time className="timePost">{formattedDate}</time>
+                <div className="id">
+                    <a href="" onClick={onGoToProfile}>
+                        {author.name}
+                    </a>
                 </div>
-            </div>
-
-            <div className="infoPost">
-                <p className="textPost">{textPost}</p>
-            </div>
-
-            <div className="postButtons">
-                {author === context.userId && (
-                    <button onClick={handleEditPost}>📝</button>
-                )}
-                <button>⭐️</button>
-                {author === context.userId && (
-                    <button onClick={handleDeletePost}>🗑️</button>
-                )}
-                <button onClick={handleToggleLikePost}>
-                    {likes && likes.includes(context.userId) ? '❤️' : '🤍'}
+                <div className="edit">
+                    {author.id === context.userId && (
+                        <button onClick={handleEditPost} className="btn-edit">
+                            <i className="fa-regular fa-pen-to-square fa-xl"></i>
+                        </button>
+                    )}
+                </div>
+            </section>
+            <section
+                className="post"
+                style={{ backgroundImage: `url(${image})` }}
+            />
+            <section className="btn-group">
+                <button
+                    type="button"
+                    className="btn-love"
+                    onClick={handleToggleLikePost}
+                >
+                    {/* <i className="far fa-heart fa-lg"></i> */}
+                    {likes && likes.includes(context.userId) ? (
+                        <i
+                            className="fa-solid fa-heart fa-xl"
+                            style={{ color: 'red' }}
+                        ></i>
+                    ) : (
+                        <i className="fa-regular fa-heart fa-xl"></i>
+                    )}
                 </button>
-                <div className="avatarLikes">
-                    {likes && handleShowLikes(likes)}
 
-                    {/* {likes &&
-                        likes.map((like) => (
-                            <img
-                                key={like}
-                                className="avatarLike"
-                                src={retrieveUser(like).avatar}
-                            />
-                        ))}
-                    {likes && likes.length > 4 && (
-                        <p className="likesNumber">+{likes.length}</p>
-                    )}{' '} */}
-                </div>
-            </div>
-        </article>
+                {author.id === context.userId && (
+                    <button onClick={handleDeletePost} className="btn-delete">
+                        <i className="fa-solid fa-trash fa-xl"></i>
+                    </button>
+                )}
+
+                <button className="btn-hide-post">
+                    <i className="fa-solid fa-eye fa-xl"></i>
+                </button>
+
+                <button
+                    type="button"
+                    className="btn-bookmark"
+                    onClick={handleToggleSavePost}
+                >
+                    {fav ? (
+                        <i className="fa-solid fa-bookmark fa-xl"></i>
+                    ) : (
+                        <i className="far fa-bookmark fa-xl"></i>
+                    )}
+                </button>
+            </section>
+            <section className="caption">
+                <p className="like">Likes: {likes && handleShowLikes(likes)}</p>
+                <p>
+                    <b>
+                        <a className="id" href="#" onClick={onGoToProfile}>
+                            {`${author.name} `}
+                        </a>
+                    </b>
+                    {textPost}
+                </p>
+                <p className="time"> {formattedDate}</p>
+            </section>
+        </div>
     )
 }
+
+{
+    /* <article style={{ backgroundImage: `url(${image})` }}>
+        //     <div className="authorImageTime">
+        //         <div className="authorAndAvatar">
+        //             {/* <img
+        //                 className="avatarUserOnPost"
+        //                 src={handleDefaultAvatar()}
+        //             /> */
+}
+//             {/* <p className="nameAuthor"> {nameCreatorPost}</p> */}
+//         </div>
+//         <div className="imageDate">
+//             {/* <img src={image} /> */}
+//             <time className="timePost">{formattedDate}</time>
+//         </div>
+//     </div>
+
+//     <div className="infoPost">
+//         <p className="textPost">{textPost}</p>
+//     </div>
+
+//     <div className="postButtons">
+//
+//         <button onClick={handleToggleSavePost}>
+//             {favs && favs.includes(id) ? '⭐️' : '☆'}
+//         </button>
+//         {author.id === context.userId && (
+//             <button onClick={handleDeletePost}>🗑️</button>
+//         )}
+//         <button onClick={handleToggleLikePost}>
+//             {likes && likes.includes(context.userId) ? '❤️' : '🤍'}
+//         </button>
+//         <div className="avatarLikes">
+//             {/* {likes && handleAvatarOrLikes()} */}
+//             {/* {likes && handleAvatarOrLikes(likes)} */}
+//             {/* {likes && likes.length > 4 && (
+//                 <p className="likesNumber">+{likes.length}</p>
+//             )}{' '} */}
+//         </div>
+//     </div>
+// </article> */}

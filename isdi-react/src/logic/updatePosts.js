@@ -1,32 +1,47 @@
-import { validateId, validateUrl, validateText } from './helpers/validators'
-import { findUserById, findPostById } from './helpers/data-managers'
-import { savePost } from '../data'
-import { posts } from '../data'
+import {
+    validateId,
+    validateUrl,
+    validateText,
+    validateCallback,
+} from './helpers/validators'
+import { savePost, findUserById, findPostById } from '../data'
 
-export default function updatePost(userId, postId, image, text) {
-    validateId(userId, 'user id')
-    validateId(postId, 'post id')
-    validateUrl(image, 'image url')
-    validateText(text, 'text')
+export default function updatePost(userId, postId, image, text, callback) {
+    validateId(userId, 'User id')
+    validateId(postId, 'Post id')
+    validateUrl(image, 'Image url')
+    validateText(text)
+    validateCallback(callback)
 
-    const user = findUserById(userId)
+    findUserById(userId, (user) => {
+        if (!user) {
+            callback(new Error(`User with id ${userId} not found`))
 
-    if (!user) throw new Error(`user with id ${userId} does not exist`)
+            return
+        }
 
-    const post = findPostById(postId)
+        findPostById(postId, (post) => {
+            if (!post) {
+                callback(new Error(`Post with id ${postId} not found`))
 
-    if (!post) throw new Error(`post with id ${postId} does not exist`)
+                return
+            }
 
-    if (post.author !== userId)
-        throw new Error(
-            `user with id ${userId} is not the author of post with id ${postId}`
-        )
+            if (post.author !== userId) {
+                callback(
+                    new Error(
+                        `Post with id ${postId} does not belong to user with id ${userId}`
+                    )
+                )
 
-    //modify post with new data
-    post.image = image
-    post.text = text
-    post.date = new Date()
-    savePost(post)
+                return
+            }
+
+            post.image = image
+            post.text = text
+            post.date = new Date()
+
+            savePost(post, () => callback(null))
+        })
+    })
 }
-
-//TODO delete post with id

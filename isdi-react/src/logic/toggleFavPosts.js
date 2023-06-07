@@ -1,11 +1,7 @@
 import { validateId, validateCallback } from './helpers/validators'
-import { findUserById, findPostById } from '../data'
+import { saveUser, findUserById, findPostById } from '../data'
 
-//Retrive a post from database
-// @param {string} userId
-// @param {string} postId
-
-export default function retrievePost(userId, postId, callback) {
+export default function toggleFavPost(userId, postId, callback) {
     validateId(userId, 'user id')
     validateId(postId, 'post id')
     validateCallback(callback)
@@ -24,7 +20,12 @@ export default function retrievePost(userId, postId, callback) {
                 return
             }
 
-            callback(null, post)
+            const index = user.favs.indexOf(postId)
+
+            if (index < 0) user.favs.push(postId)
+            else user.favs.splice(index, 1)
+
+            saveUser(user, () => callback(null))
         })
     })
 }

@@ -1,19 +1,24 @@
-import { validateId } from './helpers/validators'
-import { findUserById } from './helpers/data-managers'
+import { validateId, validateCallback } from './helpers/validators'
+import { findUserById } from '../data'
 
-export default function retrieveUser(userId) {
-    validateId(userId, 'user Id')
+export default function retrieveUser(userId, callback) {
+    validateId(userId, 'user id')
+    validateCallback(callback)
 
-    let user = findUserById(userId)
+    findUserById(userId, (user) => {
+        if (!user) {
+            callback(new Error('User not found'))
 
-    if (!user) throw new Error('user not found')
+            return
+        }
 
-    user = {
-        name: user.name,
-        avatar: user.avatar,
-    }
+        const _user = {
+            id: user.id,
+            name: user.name,
+            avatar: user.avatar,
+            favs: user.favs,
+        }
 
-    if (user.avatar) user.avatar = user.avatar
-
-    return user
+        callback(null, _user)
+    })
 }

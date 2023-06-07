@@ -1,17 +1,34 @@
-import { validateId } from './helpers/validators'
-import { users, posts } from '../data'
+import { validateId, validateCallback } from './helpers/validators'
+import { findUserById, loadPosts, loadUsers } from '../data'
 
-export default function retrievePosts(userId) {
+export default function retrievePosts(userId, callback) {
     validateId(userId, 'user id')
+    validateCallback(callback)
 
-    const found = users().some((user) => user.id === userId)
+    findUserById(userId, (user) => {
+        if (!user) {
+            callback(new Error(`User with id ${userId} not found`))
 
-    if (!found) throw new Error(`user with id ${userId} not found`)
+            return
+        }
 
-    return posts().toReversed()
+        loadPosts((posts) => {
+            loadUsers((users) => {
+                posts.forEach((post) => {
+                    post.fav =
+                        Array.isArray(user.favs) && user.favs.includes(post.id)
+
+                    const _user = users.find((user) => user.id === post.author)
+
+                    post.author = {
+                        id: _user.id,
+                        name: _user.name,
+                        avatar: _user.avatar,
+                    }
+
+                    callback(null, posts.toReversed())
+                })
+            })
+        })
+    })
 }
-//Hacer dos botones , uno para ver mis post y otro para ver todos los post
-
-//TODO
-//retrieve post
-//return post

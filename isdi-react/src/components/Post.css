@@ -1,22 +1,15 @@
-article {
+/* article {
     background-size: cover;
-    /* opacity: 0.7; */
+
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
     display: flex;
     margin: 1rem;
     padding: 1rem;
-    border: 1px solid var(--basecolorDetails);
     border-radius: 1rem;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* article:hover {
-    transform: scale(1.03);
-    opacity: 1;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
 } */
 
 .avatarUserOnPost,
@@ -26,82 +19,113 @@ article {
     border-radius: 50%;
 }
 
-.nameAuthor {
-    font-size: 75%;
-    font-weight: bold;
-    color: var(--basecolorDetails);
-}
-
-.authorAndAvatar {
-    margin-top: 0;
-    gap: 10px;
-    display: flex;
-    position: absolute;
-}
-
-.authorAndAvatar img,
-.authorAndAvatar p {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.timeInfo {
-    position: absolute;
-    bottom: 0;
-}
-
-.authorImageTime {
-    display: column;
-}
-
 p {
     word-break: break-word;
     text-overflow: ellipsis;
     cursor: pointer;
-    color: var(--basecolorPost);
+    color: black;
 }
 
-.nameAuthor {
-    color: var(--basecolorPost);
+a {
+    color: black;
+    text-decoration: none;
 }
 
-div {
-    color: var(--basecolorPost);
-}
-
-time {
-    font-size: 0.8rem;
-    color: var(--basecolorPost);
-    position: absolute;
-    bottom: 5px;
-    left: 10px;
-}
-
-.avatarLikes {
-    display: flex;
-    position: relative;
-}
-.avatarLike {
-    bottom: 0;
-    right: 10px;
-    border: 1px solid aquamarine;
-}
-
-.avatarLike + .avatarLike {
+avatarLike + .avatarLike {
     margin-left: -10px;
 }
 
-.infoPost {
-    padding-left: 10px;
-    display: flex;
-    justify-content: center;
-    width: fit-content;
-
-    width: 100%;
+.feed {
+    width: auto;
+    height: auto;
+    background-color: var(--bordercolor);
+    margin: 80px auto;
 }
-.postButtons {
+
+section {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.feed .username {
+    padding: 10px 30px 0px 30px;
     display: flex;
-    flex-direction: column;
-    text-align: right;
-    justify-content: flex-end;
+    flex-flow: row;
+}
+
+.feed .username .image,
+.feed .username .image img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.feed .username a {
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none;
+    font-size: 14px;
+}
+.btn-edit,
+.btn-love,
+.btn-delete,
+.btn-bookmark,
+.btn-hide-post {
+    background: none;
+    color: var(--basecolorDetails);
+}
+
+.feed .username .id {
+    margin: 10px 15px;
+}
+
+.feed .username .edit {
+    margin: 0px 0px 10px auto;
+    margin-left: 180px;
+}
+
+.feed .post {
+    width: 100%;
+    height: 300px;
+    margin: 10px 0px;
+}
+
+.feed .post img {
+    width: 100%;
+    height: inherit;
+}
+
+.feed .btn-group {
+    padding: 0px 10px;
+}
+
+.feed .btn-group button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.feed .btn-group .btn-bookmark,
+.btn-hide-post {
+    float: right;
+}
+
+.feed .caption {
+    font-size: 13px;
+    padding: 0px 20px;
+}
+
+.feed .caption .like {
+    font-weight: bold;
+}
+
+.feed .caption .id {
+    color: #000000;
+    text-decoration: none;
+}
+
+.feed .caption .time {
+    font-size: 10px;
+    color: var(--basecolorDetails);
 }

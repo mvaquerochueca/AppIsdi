@@ -1,15 +1,50 @@
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
 import './LoginRegister.css'
+import { useContext, useEffect, useState } from 'react'
+import Context from '../Context'
+import petitionApiQuote from '../../LibraryApis/petitionApiQuote'
+import Container from '../library/Container'
+import Form from '../library/Form'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
-    console.log('Login -> render')
+    console.debug('Login -> render')
+    const { alert, freeze, unfreeze } = useContext(Context)
+    const [quote, setQuote] = useState(null)
+
+    useEffect(() => {
+        try {
+            freeze()
+            petitionApiQuote((error, content, author) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message, 'error')
+                    return
+                }
+                setQuote({ content, author })
+            })
+        } catch (error) {
+            alert(error.message, 'error')
+        }
+    }, [])
 
     const handleRegisterClick = (event) => {
         event.preventDefault()
 
         onRegisterClick()
     }
+
+    // function showError(message) {
+    //     toast.error(message, {
+    //         position: 'top-right',
+    //         autoClose: 3000,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progressBar: true,
+    //         size: 'small',
+    //     })
+    // }
 
     const handleLogin = (event) => {
         event.preventDefault()
@@ -18,20 +53,33 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
         const password = event.target.password.value
 
         try {
-            const userId = authenticateUser(email, password)
+            authenticateUser(email, password, (error, userId) => {
+                if (error) {
+                    alert(error.message, 'error')
 
-            context.userId = userId
+                    return
+                }
+                context.userId = userId
 
-            onUserLoggedIn()
+                onUserLoggedIn()
+            })
         } catch (error) {
-            alert(error.message)
+            alert(error.message, 'warn')
         }
     }
 
     return (
-        <div className="login page container ">
-            <form className="form" onSubmit={handleLogin}>
+        <Container tag="main">
+            <Form tag="form" onSubmit={handleLogin}>
                 <span className="title">Sign In</span>
+
+                {quote && (
+                    <p>
+                        <q>{quote.content}</q>
+                        <br />
+                        <cite>{quote.author}</cite>
+                    </p>
+                )}
 
                 <input
                     className="input-login"
@@ -48,14 +96,14 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
                 <button className="button" type="submit">
                     Login
                 </button>
-            </form>
+            </Form>
 
-            <div className="form-section">
+            <div className="Form-section">
                 <p>You do not have an account?</p>
                 <a href="" onClick={handleRegisterClick}>
                     Sign Up
                 </a>
             </div>
-        </div>
+        </Container>
     )
 }

@@ -1,16 +1,38 @@
 import registerUser from '../logic/registerUser'
 import './LoginRegister.css'
+import { useEffect, useState, useContext } from 'react'
+import petitionApiQuote from '../../LibraryApis/petitionApiQuote'
+import Context from '../Context'
+import Container from '../library/Container'
+import Form from '../library/Form'
 
-export default function Register({ onLoginClick }) {
-    console.log('Register -> Render')
+export default function Register({ onLoginClick, onUserRegistered }) {
+    console.debug('Register -> Render')
+    const { alert } = useContext(Context)
 
-    function handleLoginClick(event) {
+    const [quote, setQuote] = useState(null)
+
+    useEffect(() => {
+        try {
+            petitionApiQuote((error, content, author) => {
+                if (error) {
+                    alert(error.message, 'error')
+                    return
+                }
+                setQuote({ content, author })
+            })
+        } catch (error) {
+            alert(error.message, 'error')
+        }
+    }, [])
+
+    const handleLoginClick = (event) => {
         event.preventDefault()
 
         onLoginClick()
     }
 
-    function handleRegisterUser(event) {
+    const handleRegisterUser = function (event) {
         event.preventDefault()
 
         const name = event.target.name.value
@@ -18,23 +40,34 @@ export default function Register({ onLoginClick }) {
         const password = event.target.password.value
 
         try {
-            registerUser(name, email, password)
+            registerUser(name, email, password, (error) => {
+                if (error) {
+                    alert(error.message)
+                    return
+                }
 
-            handleLoginClick(event)
-
-            alert('User registered successfully')
+                onUserRegistered()
+                handleLoginClick(event)
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
     return (
-        <div className="register page container">
-            <form className="form" onSubmit={handleRegisterUser}>
+        <Container tag="main">
+            <Form tag="form" onSubmit={handleRegisterUser}>
                 <span className="title">Sing Up</span>
                 <span className="subtitle">
                     Create a free account with your email
                 </span>
+                {quote && (
+                    <p>
+                        <q>{quote.content}</q>
+                        <br />
+                        <cite>{quote.author}</cite>
+                    </p>
+                )}
                 <input
                     className="input-register"
                     type="text"
@@ -57,9 +90,9 @@ export default function Register({ onLoginClick }) {
                 <button className="button" type="submit">
                     Sing up
                 </button>
-            </form>
+            </Form>
 
-            <div className="form-section">
+            <div className="form-section-register">
                 <p>
                     Have an account?{' '}
                     <a href="" onClick={handleLoginClick}>
@@ -67,6 +100,6 @@ export default function Register({ onLoginClick }) {
                     </a>
                 </p>
             </div>
-        </div>
+        </Container>
     )
 }

@@ -3,9 +3,14 @@ import Register from './Pages/Register'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
 import { context } from './ui'
+import Alert from './components/Alert'
+import Context from './Context'
+import { Loader } from './library/Loader'
 
 export default function App() {
     const [view, setView] = useState(context.userId ? 'home' : 'login')
+    const [feedback, setFeedback] = useState(null)
+    const [loading, setLoading] = useState(false)
 
     const handleGoToRegister = () => setView('register')
 
@@ -13,33 +18,41 @@ export default function App() {
 
     const handleGoToHome = () => setView('home')
 
-    const handleGoToSavePost = () => setView('savePost')
+    const handleAcceptAlert = () => setFeedback(null)
 
-    // componentWillMount() {
-    //     console.log('App -> componentWillMount')
-    // }
+    const alert = (message, level = 'warn') => {
+        setFeedback({ message, level })
+    }
+    const freeze = () => setLoading(true)
+    const unfreeze = () => setLoading(false)
 
-    // componentDidMount() {
-    //     console.log('App -> componentDidMount')
-    // }
+    console.debug('App -> render')
 
-    // componentWillUnmount() {
-    //     console.log('App -> componentWillUnmount')
-    // }
-
-    console.log('App -> render')
-
-    switch (view) {
-        case 'login':
-            return (
+    return (
+        <Context.Provider value={{ alert, freeze, unfreeze }}>
+            {view === 'login' && (
                 <Login
                     onRegisterClick={handleGoToRegister}
                     onUserLoggedIn={handleGoToHome}
                 />
-            )
-        case 'register':
-            return <Register onLoginClick={handleGoToLogin} />
-        case 'home':
-            return <Home onLoggedOut={handleGoToLogin} />
-    }
+            )}
+            {/* <ToastContainer /> */}
+
+            {view === 'register' && (
+                <Register
+                    onLoginClick={handleGoToLogin}
+                    onUserRegistered={handleGoToLogin}
+                />
+            )}
+            {view === 'home' && <Home onLoggedOut={handleGoToLogin} />}
+            {feedback && (
+                <Alert
+                    message={feedback.message}
+                    level={feedback.level}
+                    onAccept={handleAcceptAlert}
+                />
+            )}
+            {loading && <Loader />}
+        </Context.Provider>
+    )
 }

@@ -1,58 +1,67 @@
 import retrievePosts from '../logic/retrievePosts'
 import Post from './Post'
 import { context } from '../ui'
-import './Posts.css'
-import { useEffect, useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import Context from '../Context'
 
-export default function Posts({ onEditPost, lastPostsUpdate }) {
-    let _posts
+export default function Posts({
+    onEditPost,
+    lastPostsUpdate,
+    user,
+    onGoToProfile,
+}) {
+    const { freeze, unfreeze, alert } = useContext(Context)
+    const [posts, setPosts] = useState()
 
-    try {
-        _posts = retrievePosts(context.userId)
-    } catch (error) {
-        alert(error.message)
-    }
-
-    const [posts, setPosts] = useState(_posts)
+    useEffect(() => handleRefreshPosts(), [])
 
     const handleRefreshPosts = () => {
         try {
-            const posts = retrievePosts(context.userId)
+            freeze()
+            retrievePosts(context.userId, (error, posts) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
 
-            setPosts(posts)
+                    return
+                }
+
+                setPosts(posts)
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
     useEffect(() => {
-        console.log('Posts -> "componentDidMount" with hooks')
+        console.debug('Posts -> "componentDidMount" with hooks')
 
-        return () => console.log('Posts -> "componentWillUnmount" with hooks')
+        return () => console.debug('Posts -> "componentWillUnmount" with hooks')
     }, [])
 
-    //     if (this.props.lastPostsUpdate !== newProps.lastPostsUpdate)
-    //         this.handleRefreshPosts()
-    // }
-
     useEffect(() => {
-        console.log('Posts -> "componentWillReceiveProps" with hooks')
+        console.debug('Posts -> "componentWillReceiveProps" with hooks')
 
         if (lastPostsUpdate) handleRefreshPosts()
     }, [lastPostsUpdate])
-    console.log('Posts -> render')
+
+    console.debug('Posts -> render')
 
     return (
-        <section className="postsSection">
-            {posts.map((post) => (
-                <Post
-                    key={post.id}
-                    post={post}
-                    onEditPost={onEditPost}
-                    onToggledLikePost={handleRefreshPosts}
-                    onPostDeleted={handleRefreshPosts}
-                />
-            ))}
+        <section>
+            {posts &&
+                posts.map((post) => (
+                    <Post
+                        key={post.id}
+                        post={post}
+                        onGoToProfile={onGoToProfile}
+                        onEditPost={onEditPost}
+                        onToggledLikePost={handleRefreshPosts}
+                        onPostDeleted={handleRefreshPosts}
+                        onToggledSavePost={handleRefreshPosts}
+                        user={user}
+                    />
+                ))}
         </section>
     )
 }

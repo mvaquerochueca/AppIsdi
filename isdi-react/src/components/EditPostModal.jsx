@@ -1,10 +1,13 @@
 import { context } from '../ui'
 import updatePost from '../logic/updatePosts'
 import retrievePost from '../logic/retrievePost'
+import { useState, useEffect } from 'react'
 import './Modal.css'
+import Container from '../library/Container'
+import Form from '../library/Form'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
-    console.log('EditPostModal -> render')
+    const [post, setPost] = useState(null)
 
     function handleCancel(event) {
         event.preventDefault()
@@ -19,56 +22,81 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
         const text = event.target.text.value
 
         try {
-            updatePost(context.userId, postId, image, text)
+            updatePost(context.userId, postId, image, text, (error) => {
+                if (error) {
+                    alert(error.message)
 
-            onPostUpdated()
+                    return
+                }
+                onPostUpdated()
+                handleCancel(event)
+            })
         } catch (error) {
             alert(error.message)
         }
     }
 
-    try {
-        const { image, text } = retrievePost(context.userId, postId)
+    useEffect(() => {
+        try {
+            retrievePost(context.userId, postId, (error, post) => {
+                if (error) {
+                    alert(error.message)
 
-        return (
-            <section className="edit-post container">
-                <form className="modal-edit-post" onSubmit={handleUpdatePost}>
-                    <h3>Update Post</h3>
-                    <input
-                        type="url"
-                        name="image"
-                        id="image"
-                        placeholder="Image Url"
-                        defaultValue={image}
-                    />
+                    return
+                }
 
-                    <textarea
-                        className="input"
-                        name="text"
-                        cols="30"
-                        rows="10"
-                        placeholder="text"
-                        defaultValue={text}
-                    ></textarea>
+                setPost(post)
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }, [])
 
-                    <div>
-                        <button className="button-create" type="submit">
-                            Update
-                        </button>
-                        <button
-                            className="button cancel"
-                            type="button"
-                            onClick={handleCancel}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </section>
-        )
-    } catch (error) {
-        alert(error.message)
+    console.debug('EditPostModal -> render')
+    console.debug('EditPostModal -> render')
 
-        return null
-    }
+    return (
+        <>
+            {post && (
+                <Container tag="section" className="add-post ">
+                    <Form
+                        tag="form"
+                        className="modal-add-post"
+                        onSubmit={handleUpdatePost}
+                    >
+                        <h3>Update Post</h3>
+
+                        <input
+                            type="url"
+                            name="image"
+                            id="image"
+                            defaultValue={post.image}
+                            placeholder="Image URL"
+                        />
+
+                        <textarea
+                            className="input"
+                            name="text"
+                            cols="30"
+                            rows="10"
+                            defaultValue={post.text}
+                            placeholder="Text"
+                        ></textarea>
+                        <div>
+                            <button className="button-create" type="submit">
+                                Update
+                            </button>
+                            <button
+                                className="button cancel"
+                                type="button"
+                                onClick={handleCancel}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </Form>
+                </Container>
+            )}
+        </>
+    )
 }

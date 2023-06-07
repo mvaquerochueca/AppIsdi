@@ -10,10 +10,8 @@ input {
     padding: 8px 15px;
 }
 .modal-add-post,
-.modal-edit-post,
 .modal-edit-post {
     border: 1px solid var(--basecolorDetails);
-
     position: fixed;
     flex-direction: column;
     display: flex;
@@ -24,9 +22,10 @@ input {
     background-color: var(--basecolorModal);
     border-radius: 15px;
 }
+
 input::placeholder,
 textarea::placeholder {
-    color: var(--basecolorDetails);
+    color: black;
     font-size: 1rem;
 }
 .modal-add-post button,

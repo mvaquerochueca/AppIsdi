@@ -1,11 +1,10 @@
 .Container {
     max-width: 300px;
-    background: var(--basecolorBackground);
+    background: var(--primary);
     overflow: hidden;
     border-radius: 16px;
     color: var(--basecolorDetails);
     height: 100%;
     margin: auto;
     margin-top: 150px;
-    border: 1px solid black;
 }

@@ -1,6 +1,6 @@
 console.debug('load data')
 
-const DELAY = 200
+const DELAY = 100
 
 export const loadUsers = (callback) =>
     setTimeout(

@@ -3,8 +3,7 @@ import updatePost from '../logic/updatePosts'
 import retrievePost from '../logic/retrievePost'
 import { useState, useEffect } from 'react'
 import './Modal.css'
-import Container from '../library/Container'
-import Form from '../library/Form'
+import { Container, Form } from '../library'
 
 export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
     const [post, setPost] = useState(null)
@@ -58,13 +57,13 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
     return (
         <>
             {post && (
-                <Container tag="section" className="add-post ">
+                <section className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
                     <Form
                         tag="form"
-                        className="modal-add-post"
-                        onSubmit={handleUpdatePost}
+                        className="bg-white rounded-lg p-6"
+                        onSumbit={handleUpdatePost}
                     >
-                        <h3>Update Post</h3>
+                        <h3 className="text-xl font-bold mb-4">Update Post</h3>
 
                         <input
                             type="url"
@@ -72,22 +71,27 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
                             id="image"
                             defaultValue={post.image}
                             placeholder="Image URL"
+                            className="w-full border-2 border-cyan-500 placeholder-black rounded px-3 py-2 mb-4"
                         />
 
                         <textarea
-                            className="input"
+                            className="w-full border-2 border-cyan-500 placeholder-black rounded px-3 py-2 mb-4"
                             name="text"
                             cols="30"
                             rows="10"
                             defaultValue={post.text}
                             placeholder="Text"
                         ></textarea>
-                        <div>
-                            <button className="button-create" type="submit">
+
+                        <div className="flex justify-end">
+                            <button
+                                className="rounded-lg px-2 text-lg mx-2  mr-2 bg-cyan-500 "
+                                type="submit"
+                            >
                                 Update
                             </button>
                             <button
-                                className="button cancel"
+                                className="rounded-lg px-2 text-lg mx-2  mr-2 bg-cyan-500 "
                                 type="button"
                                 onClick={handleCancel}
                             >
@@ -95,7 +99,7 @@ export default function EditPostModal({ onCancel, onPostUpdated, postId }) {
                             </button>
                         </div>
                     </Form>
-                </Container>
+                </section>
             )}
         </>
     )

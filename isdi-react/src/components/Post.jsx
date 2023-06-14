@@ -1,9 +1,8 @@
 import { context, DEFAULT_AVATAR } from '../ui'
-import './Post.css'
 import toggleLikePost from '../logic/toggleLikePost'
 import toggleFavPost from '../logic/toggleFavPosts'
 import deletePost from '../logic/deletePost'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Context from '../Context'
 
 export default function Post({
@@ -25,6 +24,22 @@ export default function Post({
                 if (error) {
                     alert(error.message)
                 }
+                onToggledLikePost()
+            })
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    const handleDoubleClick = () => {
+        try {
+            freeze()
+            toggleLikePost(context.userId, id, (error) => {
+                unfreeze()
+                if (error) {
+                    alert(error.message)
+                }
+
                 onToggledLikePost()
             })
         } catch (error) {
@@ -77,8 +92,8 @@ export default function Post({
             return likes.map((like) => (
                 <img
                     key={like}
-                    className="avatarLike"
-                    src={author.avatar ? author.avatar : DEFAULT_AVATAR}
+                    className="w-8 h-8 rounded-full"
+                    src={author.avatar}
                 />
             ))
         } else {
@@ -97,71 +112,83 @@ export default function Post({
     const textPost = limitText(text)
 
     return (
-        <div className="feed">
-            <section className="username">
-                <div className="image">
-                    <a href="#">
+        <div className="border-4 border-l-emerald-950 rounded-md h-90 w-90">
+            <section className="grid grid-cols-2 gap-4">
+                <div className="flex items-center">
+                    <a href="#" className="aling-self-center mt-2 mb-2">
                         {' '}
                         <img
+                            className="w-12 h-12 rounded-full"
                             src={author.avatar ? author.avatar : DEFAULT_AVATAR}
                         />
                     </a>
-                </div>
-                <div className="id">
-                    <a href="" onClick={onGoToProfile}>
+                    <a
+                        href=""
+                        onClick={onGoToProfile}
+                        className="ml-1 text-xl antialiased"
+                    >
                         {author.name}
                     </a>
                 </div>
-                <div className="edit">
+
+                <div className="flex justify-end ">
                     {author.id === context.userId && (
-                        <button onClick={handleEditPost} className="btn-edit">
+                        <button onClick={handleEditPost} className="mr-2">
                             <i className="fa-regular fa-pen-to-square fa-xl"></i>
                         </button>
                     )}
                 </div>
             </section>
-            <section
-                className="post"
-                style={{ backgroundImage: `url(${image})` }}
-            />
-            <section className="btn-group">
-                <button
-                    type="button"
-                    className="btn-love"
-                    onClick={handleToggleLikePost}
-                >
-                    {/* <i className="far fa-heart fa-lg"></i> */}
-                    {likes && likes.includes(context.userId) ? (
-                        <i
-                            className="fa-solid fa-heart fa-xl"
-                            style={{ color: 'red' }}
-                        ></i>
-                    ) : (
-                        <i className="fa-regular fa-heart fa-xl"></i>
-                    )}
-                </button>
+            <section className="w-58 h-58">
+                <img src={image} onDoubleClick={handleDoubleClick} />
+            </section>
 
-                {author.id === context.userId && (
-                    <button onClick={handleDeletePost} className="btn-delete">
-                        <i className="fa-solid fa-trash fa-xl"></i>
+            <section className="mt-2 flex justify-between">
+                <div>
+                    <button
+                        type="button"
+                        onClick={handleToggleLikePost}
+                        className="mr-2 ml-1"
+                    >
+                        {likes && likes.includes(context.userId) ? (
+                            <i
+                                className="fa-solid fa-heart fa-xl"
+                                style={{ color: 'red' }}
+                            ></i>
+                        ) : (
+                            <i className="fa-regular fa-heart fa-xl"></i>
+                        )}
                     </button>
-                )}
 
-                <button className="btn-hide-post">
-                    <i className="fa-solid fa-eye fa-xl"></i>
-                </button>
-
-                <button
-                    type="button"
-                    className="btn-bookmark"
-                    onClick={handleToggleSavePost}
-                >
-                    {fav ? (
-                        <i className="fa-solid fa-bookmark fa-xl"></i>
-                    ) : (
-                        <i className="far fa-bookmark fa-xl"></i>
+                    {author.id === context.userId && (
+                        <button
+                            onClick={handleDeletePost}
+                            className="btn-delete"
+                        >
+                            <i className="fa-solid fa-trash fa-xl"></i>
+                        </button>
                     )}
-                </button>
+                </div>
+                <div>
+                    <button className="btn-hide-post">
+                        <i className="fa-solid fa-eye fa-xl mr-2"></i>
+                    </button>
+
+                    <button
+                        type="button"
+                        className="mr-1"
+                        onClick={handleToggleSavePost}
+                    >
+                        {fav ? (
+                            <i
+                                className="fa-solid fa-bookmark fa-xl"
+                                style={{ color: 'green' }}
+                            ></i>
+                        ) : (
+                            <i className="far fa-bookmark fa-xl"></i>
+                        )}
+                    </button>
+                </div>
             </section>
             <section className="caption">
                 <p className="like">Likes: {likes && handleShowLikes(likes)}</p>

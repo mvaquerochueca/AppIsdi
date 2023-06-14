@@ -1,11 +1,13 @@
 import { context } from '../ui'
 import authenticateUser from '../logic/authenticateUser'
-import './LoginRegister.css'
+// import './LoginRegister.css'
 import { useContext, useEffect, useState } from 'react'
 import Context from '../Context'
 import petitionApiQuote from '../../LibraryApis/petitionApiQuote'
 import Container from '../library/Container'
 import Form from '../library/Form'
+import Input from '../library/Input'
+import Button from '../library/Button'
 
 export default function Login({ onRegisterClick, onUserLoggedIn }) {
     console.debug('Login -> render')
@@ -70,37 +72,30 @@ export default function Login({ onRegisterClick, onUserLoggedIn }) {
 
     return (
         <Container tag="main">
-            <Form tag="form" onSubmit={handleLogin}>
-                <span className="title">Sign In</span>
+            <Form onSubmit={handleLogin}>
+                <span className="text-2xl text-center mt-5 ">Sign In</span>
 
-                {quote && (
-                    <p>
+                {/* {quote && (
+                    <p className="text-center">
                         <q>{quote.content}</q>
                         <br />
                         <cite>{quote.author}</cite>
                     </p>
-                )}
+                )} */}
+                <span className="text-l text-center mt-5 ">¡Welcome Back!</span>
 
-                <input
-                    className="input-login"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                />
-                <input
-                    className="input-login"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                />
-                <button className="button" type="submit">
-                    Login
-                </button>
+                <Input type="email" name="email" placeholder="Email" />
+                <Input type="password" name="password" placeholder="Password" />
+                <Button type="submit">Login</Button>
             </Form>
 
-            <div className="Form-section">
-                <p>You do not have an account?</p>
-                <a href="" onClick={handleRegisterClick}>
+            <p className="text-center p-2">You do not have an account?</p>
+            <div className="flex justify-center p-4">
+                <a
+                    href=""
+                    onClick={handleRegisterClick}
+                    className="text-center text-blue-500"
+                >
                     Sign Up
                 </a>
             </div>

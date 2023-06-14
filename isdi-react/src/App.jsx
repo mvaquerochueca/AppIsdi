@@ -5,7 +5,8 @@ import Login from './Pages/Login'
 import { context } from './ui'
 import Alert from './components/Alert'
 import Context from './Context'
-import { Loader } from './library/Loader'
+import { Loader } from '/Users/mario/Desktop/Github Repo/AppIsdi/isdi-react/src/library/index.js'
+// import SavedPost from './components/SavedPosts'
 
 export default function App() {
     const [view, setView] = useState(context.userId ? 'home' : 'login')
@@ -19,6 +20,8 @@ export default function App() {
     const handleGoToHome = () => setView('home')
 
     const handleAcceptAlert = () => setFeedback(null)
+
+    // const handleGoToSavedPosts = () => setView('savedPosts')
 
     const alert = (message, level = 'warn') => {
         setFeedback({ message, level })
@@ -36,7 +39,6 @@ export default function App() {
                     onUserLoggedIn={handleGoToHome}
                 />
             )}
-            {/* <ToastContainer /> */}
 
             {view === 'register' && (
                 <Register

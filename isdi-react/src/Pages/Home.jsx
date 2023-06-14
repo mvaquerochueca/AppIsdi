@@ -1,28 +1,27 @@
 import Posts from '../components/Posts'
-import { FiSun, FiMoon } from 'react-icons/fi'
-import SavedPosts from '../components/SavedPosts'
+import { FiSun, FiMoon, FiMenu } from 'react-icons/fi'
+// import SavedPosts from '../components/SavedPosts'
 import UpdatePassword from '../components/UpdatePassword'
 import UpdateAvatar from '../components/UpdateAvatar'
 import { useState, useEffect } from 'react'
 import AddPostModal from '../components/AddPostModal'
-// import Profile from '../components/Profile'
 import EditPostModal from '../components/EditPostModal'
 import './Home.css'
 import { context, DEFAULT_AVATAR } from '../ui'
 import retrieveUser from '../logic/retrieveUser'
 import { loadUsers } from '../data'
-import Container from '../library/Container'
+import Profile from '../components/Profile'
+import { Button } from '../library'
 
 export default function Home({ onLoggedOut }) {
     const [view, setView] = useState('posts')
     const [modal, setModal] = useState(false)
     const [postId, setPostId] = useState(null)
     const [lastPostUpdate, setLastPostUpdate] = useState(Date.now())
-    const [isMenuOpen, setMenuOpen] = useState(false)
     const [hideAvatarLink, setHideAvatarLink] = useState(null)
-    const [hideLogoutLink, setHideLogoutLink] = useState(null)
     const [user, setUser] = useState()
     const [isDarkMode, setDarkMode] = useState(false)
+    const [open, setOpen] = useState(false)
 
     useEffect(() => {
         try {
@@ -39,16 +38,16 @@ export default function Home({ onLoggedOut }) {
         }
     }, [])
 
-    useEffect(() => {
-        const avatarLink = document.getElementById(
-            'home-header-avatar-img-user'
-        )
-        const logoutLink = document.getElementById('home-header-logout')
+    // useEffect(() => {
+    //     const avatarLink = document.getElementById(
+    //         'home-header-avatar-img-user'
+    //     )
+    //     const logoutLink = document.getElementById('home-header-logout')
 
-        setHideLogoutLink(logoutLink)
+    //     setHideLogoutLink(logoutLink)
 
-        setHideAvatarLink(avatarLink)
-    }, [])
+    //     setHideAvatarLink(avatarLink)
+    // }, [])
 
     useEffect(() => {
         const buttonOpenModal = document.getElementById('add-post-button')
@@ -65,31 +64,30 @@ export default function Home({ onLoggedOut }) {
         }
     }
 
-    const handleHideProfileHeader = () => {
-        if (!isMenuOpen) {
-        } else {
-        }
+    const handleLogout = () => {
+        delete context.userId
+        onLoggedOut()
     }
     //No se por que funciona asi, pero funciona
-    const handleViewLogout = () => {
-        if (hideLogoutLink) {
-        }
+    // const handleViewLogout = () => {
+    //     if (hideLogoutLink) {
+    //     }
 
-        if (hideAvatarLink) {
-        }
-    }
+    //     if (hideAvatarLink) {
+    //     }
+    // }
 
     const handleViewAvatar = () => {
         if (hideAvatarLink) {
         }
     }
 
-    const handleToggleMenu = () => {
-        handleViewAvatar()
-        handleViewLogout()
-        setModal(null)
-        setMenuOpen(!isMenuOpen)
-    }
+    // const handleToggleMenu = () => {
+    //     handleViewAvatar()
+    //     // handleViewLogout()
+    //     setModal(null)
+    //     setOpen(!isMenuOpen)
+    // }
 
     const handleSwitchMode = () => {
         setDarkMode(!isDarkMode)
@@ -114,57 +112,46 @@ export default function Home({ onLoggedOut }) {
         event.preventDefault()
         setModal(null)
         setView('profile')
-        setMenuOpen(false)
+        setOpen(false)
 
         handleViewAvatar()
-        handleViewLogout()
     }
     const handleGoToUpdatePassword = (event) => {
         event.preventDefault()
         setModal(null)
         setView('update-password')
-        setMenuOpen(false)
+        setOpen(false)
         handleViewAvatar()
-        handleViewLogout()
+        // handleViewLogout()
     }
 
-    const handleGoToSavedPosts = () => {
-        setModal(null)
-        setView('saved-posts')
-        setMenuOpen(false)
-        handleViewAvatar()
-        handleViewLogout()
-    }
+    // const handleGoToSavedPosts = () => {
+    //     setModal(null)
+    //     setView('saved-posts')
+    //     setOpen(false)
+    //     handleViewAvatar()
+    // }
 
     const handleGoUpdateAvatar = (event) => {
         event.preventDefault()
         setView('update-avatar')
         setModal(null)
-        setMenuOpen(false)
-
+        setOpen(false)
         handleViewAvatar()
-        handleViewLogout()
     }
 
     const handleGoToPosts = (event) => {
         event.preventDefault()
-
         setModal(null)
         setView('posts')
-        setMenuOpen(false)
-
+        setOpen(false)
         handleViewAvatar()
-        handleViewLogout()
     }
     const handlePostUpdated = () => {
         setModal(null)
         setLastPostUpdate(Date.now())
     }
 
-    const handleLogout = () => {
-        delete context.userId
-        onLoggedOut()
-    }
     const handleUserAvatarUpdate = () => {
         try {
             retrieveUser(context.userId, (error, user) => {
@@ -179,129 +166,118 @@ export default function Home({ onLoggedOut }) {
         }
     }
 
-    // const handleDefaultAvatar = () => {
-    //     if (!user.avatar) {
-    //         return DEFAULT_AVATAR
-    //     } else {
-    //         return user.avatar
-    //     }
-    // }
-
     return (
-        <div>
-            <header className="home-header">
-                <div
-                    className={`menu-burger ${isMenuOpen ? 'open' : ''}`}
-                    onClick={handleToggleMenu}
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-
-                {user && (
-                    <div
-                        className="home-header-avatar-img-user"
-                        id="home-header-avatar-img-user"
-                    >
-                        <img
-                            className="home-header-avatar"
-                            src={user.avatar || DEFAULT_AVATAR}
-                            alt=""
+        <>
+            <header className="border-b border-gray-300 py-2 block h-14 bg-sky-500 pt-0">
+                <div className="flex items-center justify-between xl:max-w-7xl mx-auto    ax-w-full px-[8%] flex-wrap w-full fixed bg-sky-500">
+                    <div className="flex items-center justify-start">
+                        <FiMenu
+                            className="lg:hidden block h-6 w-6 cursor-pointer"
+                            onClick={() => setOpen(!open)}
                         />
-                        <a
-                            href=""
-                            className="link-profile"
-                            onClick={handleGoToProfile}
-                        >
-                            {user.name}
-                        </a>
-                    </div>
-                )}
-                <div>
-                    <button
-                        onClick={handleLogout}
-                        // className="button"
-                        id="home-header-logout"
-                    >
-                        <i className="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
-                    </button>
-                </div>
-
-                <nav className={`home-header-nav ${isMenuOpen ? 'open' : ''}`}>
-                    <div
-                        className="profile-burger-menu"
-                        // onClick={handleHideProfileHeader}
-                    >
-                        {user && (
-                            <div
-                                className="home-header-avatar-img-user-burger"
-                                id="home-header-avatar-img-user"
-                            >
-                                <img
-                                    className="home-header-avatar"
-                                    src={user.avatar || DEFAULT_AVATAR}
-                                    alt=""
-                                />
-                                <a
-                                    href=""
-                                    className="link-profile"
-                                    onClick={handleGoToProfile}
-                                >
-                                    {user.name}
-                                </a>
-                            </div>
-                        )}
-                    </div>
-                    {/* <div className="home-link-profile"></div> */}
-                    <div>
-                        <a
-                            className="button-home-burger button"
-                            onClick={handleGoToPosts}
-                        >
-                            Home
-                        </a>
-                    </div>
-                    <div>
-                        <a
-                            onClick={handleGoToUpdatePassword}
-                            className="btn-saved-posts-logout button"
-                        >
-                            Update Password
-                        </a>
-                    </div>
-                    <div>
-                        <a
-                            onClick={handleGoUpdateAvatar}
-                            className="btn-saved-posts-logout button"
-                        >
-                            Update Avatar
-                        </a>
                     </div>
 
-                    <div>
-                        <a
-                            onClick={handleGoToSavedPosts}
-                            className="btn-saved-posts-logout button"
-                        >
-                            Favorite Post
-                        </a>
-                    </div>
+                    {user && (
+                        <div className="flex items-center justify-center flex-grow mt-1 ">
+                            <img
+                                src={user.avatar}
+                                className="w-11 h-11 rounded-full shadow-md"
+                                alt="User Avatar"
+                                onClick={handleGoToProfile}
+                            />
+                            <p className="pl-2" onClick={handleGoToProfile}>
+                                {user.name}
+                            </p>
+                        </div>
+                    )}
 
-                    {/* <div>
-                        <a className="btn-home-logout button">Store</a>
-                    </div> */}
-
-                    <div className="btn-container-header-logout">
-                        <a
+                    <div className="flex items-center justify-end">
+                        <button
+                            className="bg-blue-500  text-white border-cyan-300 rounded-md mt px-2 text-lg shadow-md"
                             onClick={handleLogout}
-                            className="btn-home-logout-burger button"
-                            id="home-header-logout"
                         >
                             Logout
-                        </a>
+                        </button>
                     </div>
-                </nav>
+
+                    <nav
+                        className={`${
+                            open ? 'block' : 'hidden'
+                        }   mb-2 lg:flex lg:items-center lg:w-auto z-10 text-white w-[50%] rounded-lg lg:rounded-none lg:bg-transparent mt-2 lg:mt-0 lg:shadow-none shadow-xl`}
+                    >
+                        <ul className="w-auto shadow-xl rounded-md shadow-cyan-900">
+                            <li>
+                                {user && (
+                                    <div
+                                        id="home-header-avatar-img-user"
+                                        className="ml-2   flex items-center"
+                                    >
+                                        <img
+                                            className="w-12 h-12 rounded-full bg-white border-white border-2"
+                                            src={user.avatar || DEFAULT_AVATAR}
+                                            alt=""
+                                        />
+                                        <a
+                                            href=""
+                                            onClick={handleGoToProfile}
+                                            className="ml-2 mt-6 left-full top-1/2 transform -translate-y-1/2"
+                                        >
+                                            {user.name}
+                                        </a>
+                                    </div>
+                                )}
+                            </li>
+                            <li>
+                                <a
+                                    onClick={handleGoToPosts}
+                                    className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold"
+                                >
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    onClick={handleGoToProfile}
+                                    className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold"
+                                >
+                                    Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    onClick={handleGoToUpdatePassword}
+                                    className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold"
+                                >
+                                    Update Password
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    onClick={handleGoUpdateAvatar}
+                                    className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold"
+                                >
+                                    Update Avatar
+                                </a>
+                            </li>
+
+                            <li>
+                                <a className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold">
+                                    Saved Post
+                                </a>
+                            </li>
+
+                            <li>
+                                <a
+                                    onClick={handleLogout}
+                                    className="text-white ml-2 lg:px-5 py-2 block hover:text-blue-700 font-semibold"
+                                    id="home-header-logout"
+                                >
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </header>
 
             <main className="main">
@@ -313,7 +289,9 @@ export default function Home({ onLoggedOut }) {
                     />
                 )}
 
-                {view === 'saved-posts' && <SavedPosts />}
+                {view === 'profile' && <Profile />}
+
+                {/* {view === 'saved-posts' && <SavedPosts />} */}
 
                 {view === 'update-avatar' && (
                     <UpdateAvatar
@@ -339,25 +317,25 @@ export default function Home({ onLoggedOut }) {
                 )}
             </main>
 
-            <footer className="home-footer">
-                <div className="btn-post-container-footer">
+            <footer className="fixed bottom-0 left-0 right-0 bg-sky-500 text-white flex justify-center items-center h-14">
+                <div className="flex ml-auto justify-center items-center h-full">
                     <button
-                        className="add-post-button"
+                        className="ml-[100%] text-white bg-blue-700 rounded-md p-2 text-2xl "
                         id="add-post-button"
                         onClick={handleOpenAddPostModal}
                     >
                         +
                     </button>
                 </div>
-                <div className="toggleDark">
+                <div className="ml-auto">
                     <button
-                        className="toggleDark-button"
+                        className="mx-2 text-white bg-blue-700 rounded-md p-2 text-2xl"
                         onClick={handleSwitchMode}
                     >
                         {isDarkMode ? <FiSun /> : <FiMoon />}
                     </button>
                 </div>
             </footer>
-        </div>
+        </>
     )
 }

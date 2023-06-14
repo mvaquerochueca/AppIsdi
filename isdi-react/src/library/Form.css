@@ -1,4 +1,4 @@
-.register {
+/* .register {
     border: var(--bordercolor);
 }
 
@@ -25,14 +25,14 @@ q {
     padding: 32px 24px 24px;
     gap: 16px;
     text-align: center;
-    background-color: var(--basecolorBackground);
+    background-color: var(--primary);
     border: var(--borderColor);
 }
 
 .Form-section {
     padding: 16px;
     font-size: 0.9rem;
-    background-color: var(--basecolorBackground);
+    background-color: var(--primary);
     box-shadow: rgb(0, 0, 0/8%) 0px -1px;
     text-align: center;
     color: black;
@@ -40,7 +40,7 @@ q {
 .form-section-register {
     padding: 16px;
     font-size: 0.9rem;
-    background-color: var(--basecolorBackground);
+    background-color: var(--primary);
     box-shadow: rgb(0, 0, 0/8%) 0px -1px;
     text-align: center;
     color: black;
@@ -53,8 +53,8 @@ q {
     outline: 0;
     height: 40%;
     width: 90%;
-    border-bottom: 1px solid black;
-    font-size: 0.9rem;
+    /* border-bottom: 1px solid black; */
+/* font-size: 0.9rem;
     padding: 8px 15px;
 }
 .icon:hover:before {
@@ -74,10 +74,10 @@ q {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-}
+}*/
 .button {
     cursor: pointer;
-    background-color: var(--basecolorButtons);
+    background-color: var(--secondary);
     color: var(--basecolorDetails);
     border: 0;
     border-radius: 24px;
@@ -85,6 +85,7 @@ q {
     font-size: 1rem;
     font-weight: 600px;
 }
+/*
 
 .modal-add-post textarea,
 input .modal-edit-post textarea,
@@ -118,8 +119,8 @@ textarea::placeholder {
 }
 .modal-add-post button,
 .modal-edit-post button {
-    background-color: var(--basecolorButtons);
-    color: var(--basecolorBackground);
+    background-color: var(--secondary);
+    color: var(--primary);
     border: 0;
     border-radius: 24px;
     padding: 10px 16px;
@@ -134,4 +135,4 @@ textarea::placeholder {
     color: var(--basecolorDetails);
     font-size: 1.3rem;
     font-weight: 600px;
-}
+} */

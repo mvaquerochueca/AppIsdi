@@ -1,6 +1,6 @@
 :root {
-    --basecolorBackground: #f1f7fe;
-    --basecolorButtons: #0066ff;
+    --primary: #f1f7fe;
+    --secondary: #0066ff;
     --basecolorDetails: #010101;
     --basecolorModal: rgba(54, 125, 158, 0.9);
     --basecolorPost: rgb(107, 154, 201);
@@ -9,8 +9,8 @@
 }
 
 :root.dark {
-    --basecolorBackground: #121212;
-    --basecolorButtons: #bb86fc;
+    --primary: #121212;
+    --secondary: #bb86fc;
     --basecolorDetails: #03dac6;
     --basecolorModal: #3700b3;
     --basecolorPost: #03dac6;
@@ -18,7 +18,7 @@
     --baseForm: #e0ecfb;
 }
 
-.home-header {
+/* .home-header {
     position: fixed;
     z-index: 9999;
 }
@@ -26,7 +26,7 @@
 .home-header,
 .home-footer {
     width: 100%;
-    background-color: var(--basecolorButtons);
+    background-color: var(--secondary);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -42,13 +42,13 @@
 .btn-post-container-footer {
     display: flex;
     align-items: center;
-}
-.home-header button {
-    background-color: var(--basecolorBackground);
+} */
+/* .home-header button {
+    background-color: var(--primary);
     color: var(--basecolorDetails);
-}
+} */
 
-.home-footer {
+/* .home-footer {
     bottom: 0;
     left: 0;
     position: fixed;
@@ -59,7 +59,7 @@
 }
 .home-footer button {
     height: 100%;
-    background-color: var(--basecolorBackground);
+    background-color: var(--primary);
     color: var(--basecolorDetails);
     border: 0;
     border: var(--basecolorDetails);
@@ -123,8 +123,8 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    color: inherit; /* blue colors for links too */
-    text-decoration: inherit; /* no underline */
+    color: inherit; blue colors for links too 
+    text-decoration: inherit;  no underline 
 }
 .home-header-avatar-img-user-burger {
     height: 100%;
@@ -147,7 +147,7 @@
 }
 
 /* Toggle switch theme */
-
+/* 
 .menu-burger {
     position: absolute;
     top: 50%;
@@ -172,7 +172,7 @@
     top: 100%;
     left: 0;
     width: 50%;
-    background-color: var(--basecolorButtons);
+    background-color: var(--secondary);
     padding: 10px;
     border: #010101 1px solid;
     opacity: 0.9;
@@ -180,9 +180,7 @@
 
 .home-header-nav.open {
     display: block;
-    /* Separacion entre los elementos del menu */
     gap: 1rem;
-    /* Separacion entre el menu y el boton */
 }
 
 .home-header-nav.open a {
@@ -190,4 +188,4 @@
     color: #fff;
     text-decoration: none;
     margin-bottom: 10px;
-}
+}  */

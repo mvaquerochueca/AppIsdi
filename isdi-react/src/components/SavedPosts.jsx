@@ -1,38 +1,65 @@
-import './SavedPost.css'
 // import retrieveUser from '../logic/retrieveUser'
+// import retrievePost from '../logic/retrievePost'
+// import { context } from '../ui'
+// import { useState, useEffect } from 'react'
 
-export default function SavedPost() {
-    return (
-        <article>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse
-                ut alias ipsum saepe rerum, explicabo error quisquam ab nihil
-                doloremque illum porro fugiat ducimus harum eligendi beatae
-                placeat laudantium suscipit! Ullam, adipisci esse ratione libero
-                tempore consectetur beatae ipsa. Autem ipsum obcaecati quod,
-                maiores reprehenderit hic mollitia, illum explicabo illo
-                architecto sequi vitae quaerat porro quos quidem unde quo aut.
-                Dolore, libero. Labore reiciendis vel blanditiis facere
-                voluptatibus nostrum perferendis illo quidem, suscipit qui!
-                Earum aliquid quasi molestias asperiores sit consequatur omnis,
-                tempora qui quod obcaecati repellendus voluptatum cum molestiae.
-                Molestiae aliquid minus eveniet mollitia sequi laudantium nisi,
-                sed, veritatis ut consequatur unde quo placeat debitis eligendi!
-                Aliquid quisquam distinctio iste perspiciatis id dicta numquam
-                labore inventore corrupti, itaque voluptatem? Ut animi quibusdam
-                earum recusandae laborum saepe atque voluptates aliquid esse
-                necessitatibus? At perspiciatis repellendus, fugit modi natus
-                deserunt numquam veritatis quo officia aut quam. Magni possimus
-                voluptates consectetur iste. Molestias commodi pariatur a, eos
-                veniam recusandae odit! Nemo pariatur natus animi ratione sint
-                asperiores incidunt nihil facilis? Nihil recusandae culpa
-                perferendis dolorem itaque id error asperiores iusto minus
-                laborum. Quasi rem deserunt suscipit amet accusantium fugit
-                eveniet cum id dolore dolorem, iure culpa quos corporis corrupti
-                voluptas quaerat minus alias? Blanditiis maiores sit commodi,
-                placeat earum quaerat quae! Illo?
-            </p>
-            <button>Hola</button>
-        </article>
-    )
-}
+// export default function SavedPost() {
+//     // const [user, setUser] = useState(null)
+//     // const [posts, setPosts] = useState([])
+
+//     // useEffect(() => {
+//     //     try {
+//     //         retrieveUser(context.userId, (error, user) => {
+//     //             if (error) {
+//     //                 alert(error.message)
+//     //                 return
+//     //             }
+
+//     //             setUser(user)
+//     //         })
+//     //     } catch (error) {
+//     //         alert(error.message)
+//     //     }
+//     // }, [])
+
+//     // useEffect(() => {
+//     //     if (user) {
+//     //         try {
+//     //             // Obtener los posts guardados en el array favs del usuario
+//     //             retrievePost(user.favs, (error, posts) => {
+//     //                 if (error) {
+//     //                     alert(error.message)
+//     //                     return
+//     //                 }
+
+//     //                 setPosts(posts)
+//     //             })
+//     //         } catch (error) {
+//     //             alert(error.message)
+//     //         }
+//     //     }
+//     // }, [user])
+
+//     // const handleComparePosts = (postId) => {
+//     //     if (user.favs.includes(postId)) {
+//     //         // El post está guardado en los favoritos del usuario
+//     //         // Aquí puedes agregar la lógica adicional que necesites
+//     //     }
+//     // }
+
+//     return (
+//         <section className="z-20">
+//             {posts.map((post) => (
+//                 <div key={post.id} className="saved-post-item">
+//                     {/* Renderizar la información del post */}
+//                     <img src={post.image} alt="Post" />
+//                     <h1>{post.title}</h1>
+//                     <p>{post.text}</p>
+//                     <button onClick={() => handleComparePosts(post.id)}>
+//                         Comparar
+//                     </button>
+//                 </div>
+//             ))}
+//         </section>
+//     )
+// }

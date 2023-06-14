@@ -48,7 +48,7 @@ export default function Posts({
     console.debug('Posts -> render')
 
     return (
-        <section>
+        <section className="z-20">
             {posts &&
                 posts.map((post) => (
                     <Post

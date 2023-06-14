@@ -1,4 +1,4 @@
-.modal-add-post textarea,
+/* .modal-add-post textarea,
 input .modal-edit-post textarea,
 input {
     background-color: var(--basecolorModal);
@@ -30,8 +30,8 @@ textarea::placeholder {
 }
 .modal-add-post button,
 .modal-edit-post button {
-    background-color: var(--basecolorButtons);
-    color: var(--basecolorBackground);
+    background-color: var(--secondary);
+    color: var(--primary);
     border: 0;
     border-radius: 24px;
     padding: 10px 16px;
@@ -46,4 +46,4 @@ textarea::placeholder {
     color: var(--basecolorDetails);
     font-size: 1.3rem;
     font-weight: 600px;
-}
+} */

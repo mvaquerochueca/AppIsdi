@@ -1,14 +1,9 @@
 import './Form.css'
 
-export default function Form({
-    children,
-    tag: Tag = 'form',
-    className,
-    ...props
-}) {
+export default function Form({ children, ...props }) {
     return (
-        <Tag className={`Form ${className}`} {...props}>
+        <form className="flex flex-col gap-5 " {...props}>
             {children}
-        </Tag>
+        </form>
     )
 }

@@ -7,7 +7,7 @@ export default function Container({
     ...props
 }) {
     return (
-        <Tag className={`Container ${className}`} {...props}>
+        <Tag className={`Container ${className} bg-blue-300`} {...props}>
             {children}
         </Tag>
     )

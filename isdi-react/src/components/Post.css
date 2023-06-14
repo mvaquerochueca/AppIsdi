@@ -1,4 +1,4 @@
-/* article {
+/* /* article {
     background-size: cover;
 
     background-repeat: no-repeat;
@@ -12,7 +12,7 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
 } */
 
-.avatarUserOnPost,
+/* .avatarUserOnPost,
 .avatarLike {
     width: 30px;
     height: 30px;
@@ -128,4 +128,4 @@ section {
 .feed .caption .time {
     font-size: 10px;
     color: var(--basecolorDetails);
-}
+}  */

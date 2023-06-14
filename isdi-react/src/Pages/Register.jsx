@@ -3,8 +3,7 @@ import './LoginRegister.css'
 import { useEffect, useState, useContext } from 'react'
 import petitionApiQuote from '../../LibraryApis/petitionApiQuote'
 import Context from '../Context'
-import Container from '../library/Container'
-import Form from '../library/Form'
+import { ButtonForm, Input, Container } from '../library'
 
 export default function Register({ onLoginClick, onUserRegistered }) {
     console.debug('Register -> Render')
@@ -56,49 +55,33 @@ export default function Register({ onLoginClick, onUserRegistered }) {
 
     return (
         <Container tag="main">
-            <Form tag="form" onSubmit={handleRegisterUser}>
-                <span className="title">Sing Up</span>
-                <span className="subtitle">
+            <Form onSubmit={handleRegisterUser}>
+                <span className="text-2xl text-center mt-5 ">Sing Up</span>
+                <span className="text-center ml-1 mr-1">
                     Create a free account with your email
                 </span>
-                {quote && (
-                    <p>
+                {/* {quote && (
+                    <p className="text-center">
                         <q>{quote.content}</q>
                         <br />
                         <cite>{quote.author}</cite>
                     </p>
-                )}
-                <input
-                    className="input-register"
-                    type="text"
-                    name="name"
-                    placeholder="Full Name"
-                />
-                <input
-                    className="input-register"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                />
-                <input
-                    className="input-register"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                />
+                )} */}
+                <Input type="text" name="name" placeholder="Full Name" />
+                <Input type="email" name="email" placeholder="Email" />
+                <Input type="password" name="password" placeholder="Password" />
 
-                <button className="button" type="submit">
-                    Sing up
-                </button>
+                <ButtonForm type="submit">Sing up</ButtonForm>
             </Form>
-
-            <div className="form-section-register">
-                <p>
-                    Have an account?{' '}
-                    <a href="" onClick={handleLoginClick}>
-                        Sign In
-                    </a>
-                </p>
+            <p className="text-center p-2">Have an account? </p>
+            <div className="flex flex-col justify-center p-4">
+                <a
+                    href=""
+                    onClick={handleLoginClick}
+                    className="text-center text-blue-500"
+                >
+                    Sign In
+                </a>
             </div>
         </Container>
     )

@@ -5,6 +5,8 @@ import { useContext } from 'react'
 import Context from '../Context'
 import Form from '../library/Form'
 import Container from '../library/Container'
+import Input from '../library/Input'
+import Button from '../library/ButtonForm'
 
 export default function UpdateAvatar({ onUserAvatarUpdated }) {
     const { alert } = useContext(Context)
@@ -32,21 +34,14 @@ export default function UpdateAvatar({ onUserAvatarUpdated }) {
     return (
         <section>
             <Container tag="div">
-                <Form
-                    tag="form"
-                    className="form profile-avatar-form"
-                    onSubmit={handleUpdateAvatar}
-                >
-                    <span>Update avatar</span>
-                    <input
-                        className="input-change-avatar"
-                        type="url"
-                        name="url"
-                        placeholder="Url"
-                    />
-                    <button className="button" type="submit">
+                <Form onSubmit={handleUpdateAvatar}>
+                    <span className="text-center text-xl mt-4">
+                        Update avatar
+                    </span>
+                    <Input type="url" name="url" placeholder="Url" />
+                    <Button type="submit" className="mb-4">
                         Update
-                    </button>
+                    </Button>
                 </Form>
             </Container>
         </section>

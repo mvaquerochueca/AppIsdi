@@ -1,16 +1,32 @@
-:root {
-    --basecolorBackground: #f1f7fe;
-    --basecolorButtons: #0066ff;
-    --basecolorDetails: #010101;
-    --basecolorModal: rgba(54, 125, 158, 0.9);
-    --basecolorPost: rgb(107, 154, 201);
-    --borderColor: #010101;
-    --baseForm: #e0ecfb;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .color1 { #beed80 };
+.color2 { #59d999 };
+.color3 { #31ada1 };
+.color4 { #51647a };
+.color5 { #453c5c }; */
+
+@layer base {
+    :root {
+        --primary: #f1f7fe;
+        --secondary: #0066ff;
+        --basecolorDetails: #010101;
+        --basecolorModal: rgba(54, 125, 158, 0.9);
+        --basecolorPost: rgb(107, 154, 201);
+        --borderColor: #010101;
+        --baseForm: #e0ecfb;
+    }
+
+    html {
+        font-family: Gotham SSm A;
+    }
 }
 
 :root.dark {
-    --basecolorBackground: #121212;
-    --basecolorButtons: #bb86fc;
+    --primary: #121212;
+    --secondary: #bb86fc;
     --basecolorDetails: #03dac6;
     --basecolorModal: #3700b3;
     --basecolorPost: #03dac6;
@@ -18,23 +34,9 @@
     --baseForm: #e0ecfb;
 }
 
-html {
-    font-family: 'Cascadia Code', sans-serif;
-    background-color: var(--basecolorBackground);
-    height: auto;
-}
-
-body {
-    height: 100%;
-}
-div {
-    border: var(--basecolorBackground);
-}
-
-/* divs */
 .container {
     max-width: 300px;
-    background: var(--basecolorBackground);
+    background: var(--primary);
     overflow: hidden;
     border-radius: 16px;
     color: var(--basecolorDetails);
@@ -47,35 +49,3 @@ div {
     font-weight: bold;
     font-size: 1.6rem;
 }
-
-/* register and log in .form {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 32px 24px 24px;
-    gap: 16px;
-    text-align: center;
-}
-
-.input-change-password {
-    background: none;
-    border: 0;
-    outline: 0;
-    height: 40%;
-    width: 90%;
-    border-bottom: 1px solid var(--basecolorBackground);
-    font-size: 0.9rem;
-    padding: 8px 15px;
-}
-
-.form-section {
-    padding: 16px;
-    font-size: 0.9rem;
-    background-color: var(--basecolorBackground);
-    box-shadow: rgb(0, 0, 0/8%) 0px -1px;
-    text-align: center; */
-/* } */
-
-/* components */
-
-/* modal */

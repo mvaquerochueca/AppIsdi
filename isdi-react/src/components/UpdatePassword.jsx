@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import Context from '../Context'
 import Form from '../library/Form'
 import Container from '../library/Container'
+import { Button, Input } from '../library'
 
 export default function UpdatePassword({}) {
     const { alert } = useContext(Context)
@@ -39,36 +40,28 @@ export default function UpdatePassword({}) {
     return (
         <section className="profile " id="profile-section">
             <Container tag="div">
-                <Form
-                    tag="form"
-                    className="form profile-password-form"
-                    onSubmit={handleUpdatePassword}
-                >
-                    <span className="subtitle">Update password</span>
-                    <input
-                        className="input-change-password"
+                <Form onSubmit={handleUpdatePassword}>
+                    <span className="text-xl  mt-4 text-center">
+                        Update password
+                    </span>
+                    <Input
                         type="password"
                         name="password"
                         placeholder="Password"
                     />
-                    <input
-                        className="input-change-password"
+                    <Input
                         type="password"
                         name="newPassword"
                         placeholder="New Password"
                     />
-                    <input
-                        className="input-change-password"
+                    <Input
                         type="password"
                         name="newPasswordConfirm"
                         placeholder="New Password Confirmation"
                     />
-                    <button
-                        className="button upadte-new-password"
-                        type="submit"
-                    >
+                    <Button type="submit" className="mb-4">
                         Update
-                    </button>
+                    </Button>
                 </Form>
             </Container>
         </section>

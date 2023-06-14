@@ -5,7 +5,7 @@ import Login from './Pages/Login'
 import { context } from './ui'
 import Alert from './components/Alert'
 import Context from './Context'
-import { Loader } from '/Users/mario/Desktop/Github Repo/AppIsdi/isdi-react/src/library/index.js'
+import { Loader } from './index.js'
 // import SavedPost from './components/SavedPosts'
 
 export default function App() {
